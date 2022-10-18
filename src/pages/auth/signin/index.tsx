@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut, getProviders } from "next-auth/react";
+import { useSession, signIn, getProviders } from "next-auth/react";
 
 interface IProviders {
   providers: {
@@ -17,7 +17,7 @@ export default function SignIn({ providers }: IProviders) {
 
   console.log(session);
   return (
-    <>
+    <main>
       {Object.values(providers).map((provider) => (
         <div key={provider.name}>
           <button onClick={() => signIn(provider.id)}>
@@ -25,8 +25,7 @@ export default function SignIn({ providers }: IProviders) {
           </button>
         </div>
       ))}
-      <button onClick={() => signOut()}>Sign out</button>
-    </>
+    </main>
   );
 }
 
