@@ -1,14 +1,9 @@
+import { IProvider } from "@/types/types";
 import { useSession, signIn, getProviders } from "next-auth/react";
 
 interface IProviders {
   providers: {
-    [key: string]: {
-      id: string;
-      name: string;
-      type: string;
-      signinUrl: string;
-      callbackUrl: string;
-    };
+    [key: string]: IProvider;
   };
 }
 

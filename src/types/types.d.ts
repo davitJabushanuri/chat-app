@@ -5,3 +5,11 @@ export interface IUser {
   emailVerified: Date | null;
   image: string | null;
 }
+
+export interface IProvider {
+  id: string;
+  name: string;
+  type: string;
+  signinUrl: string;
+  callbackUrl: string;
+}
