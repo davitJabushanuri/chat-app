@@ -50,8 +50,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     messages      Message[]
-    room         Room @relation(fields: [roomId], references: [id])
-    roomId        String
+    rooms        Room[]
 }
 
 model VerificationToken {
@@ -93,12 +92,6 @@ model UserRoom {
 }
 
 // schema for many to many relationship
-model UserMessage {
-    id        String @id @default(cuid())
-    user      User   @relation(fields: [userId], references: [id])
-    userId    String
-    message   Message   @relation(fields: [messageId], references: [id])
-    messageId String
-}
+
 
 
