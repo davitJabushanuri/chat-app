@@ -71,6 +71,4 @@ model Message {
     sender     User     @relation(name: "Sender", fields: [senderId], references: [id])
     receiverId String
     receiver   User     @relation(name: "Receiver", fields: [receiverId], references: [id])
-
-    @@unique([senderId, receiverId])
 }

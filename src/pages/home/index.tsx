@@ -2,6 +2,7 @@ import styles from "./home.module.scss";
 
 import { useSession, signOut } from "next-auth/react";
 import { IUser } from "@/types/types";
+import User from "@/components/User/User";
 
 interface IHomeProps {
   users: IUser[];
@@ -9,6 +10,8 @@ interface IHomeProps {
 
 const Home = ({ users }: IHomeProps) => {
   const { data: session } = useSession();
+  const sender = users.find((user) => user.email === session?.user?.email);
+
   console.log(users);
 
   return (
@@ -22,8 +25,7 @@ const Home = ({ users }: IHomeProps) => {
             users.map((user) => {
               return (
                 <div key={user.id} className={styles.user}>
-                  <p>{user.email}</p>
-                  <p>{user.id}</p>
+                  <User user={user} senderId={sender?.id} />
                 </div>
               );
             })}
