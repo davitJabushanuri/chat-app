@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from "./index.module.scss";
 
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +16,10 @@ const Home: NextPage = () => {
 
       <main>
         <div className={styles.image}>
-          <Image src="/chat.svg" alt="Chat" width="200px" height="200px" />
+          <img
+            src="https://images.pexels.com/photos/1267708/pexels-photo-1267708.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            alt="Chat"
+          />
         </div>
         <div className={styles.content}>
           <h1>Enjoy the new experience of chatting with global friends</h1>
