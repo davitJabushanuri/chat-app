@@ -1,5 +1,9 @@
+import styles from "./signin.module.scss";
 import { IProvider } from "@/types/types";
 import { useSession, signIn, getProviders } from "next-auth/react";
+
+import { FcGoogle } from "react-icons/fc";
+import { BsGithub } from "react-icons/bs";
 
 interface IProviders {
   providers: {
@@ -12,15 +16,34 @@ export default function SignIn({ providers }: IProviders) {
 
   console.log(session);
   return (
-    <main>
-      {Object.values(providers).map((provider) => (
-        <div key={provider.name}>
-          <button onClick={() => signIn(provider.id)}>
-            Sign in with {provider.name}
+    <div className={styles.container}>
+      <main>
+        {/* {Object.values(providers).map((provider) => (
+          <div key={provider.name}>
+            <button onClick={() => signIn(provider.id)}>
+              Sign in with {provider.name}
+            </button>
+          </div>
+        ))} */}
+
+        <div className={styles.provider}>
+          <button onClick={() => signIn(providers?.google?.id)}>
+            <span className={styles.icon}>
+              <FcGoogle />
+            </span>
+            <span>Continue with {providers?.google?.name}</span>
           </button>
         </div>
-      ))}
-    </main>
+        <div className={styles.provider}>
+          <button onClick={() => signIn(providers?.github?.id)}>
+            <span className={styles.icon}>
+              <BsGithub />
+            </span>
+            <span>Continue with {providers?.github?.name}</span>
+          </button>
+        </div>
+      </main>
+    </div>
   );
 }
 
