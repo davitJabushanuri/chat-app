@@ -16,13 +16,13 @@ const Home: NextPage = () => {
 
       <main>
         <div className={styles.image}>
-          <Image src="/chat.svg" alt="Chat" layout="fill" />
+          <Image src="/chat.svg" alt="Chat" width="200px" height="200px" />
         </div>
         <div className={styles.content}>
           <h1>Enjoy the new experience of chatting with global friends</h1>
           <p>Connect people around the world for free</p>
           <button>
-            <Link href="/auth/login">
+            <Link href="/auth/signin">
               <a>Get Started</a>
             </Link>
           </button>
