@@ -2,14 +2,16 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/server/db/client";
 
 const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "POST") {
+  const { body, method } = req;
+
+  if (method === "POST") {
     try {
       const message = await prisma.message.create({
         data: {
-          content: req.body.content,
-          image: req.body.image,
-          authorId: req.body.userId,
-          roomId: req.body.roomId,
+          content: body.content,
+          image: body.image,
+          senderId: body.senderId,
+          receiverId: body.receiverId,
         },
       });
       res
