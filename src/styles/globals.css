@@ -4,12 +4,11 @@
 
 main {
   height: 100vh;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
 @media screen and (min-width: 1024px) {
   main {
-    padding: 1rem;
+    direction: ltr;
   }
 }

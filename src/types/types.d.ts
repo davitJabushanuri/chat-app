@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export interface IUser {
   id: string;
   name: string;
@@ -12,4 +14,8 @@ export interface IProvider {
   type: string;
   signinUrl: string;
   callbackUrl: string;
+}
+
+export interface ISetLayout {
+  setLayout: Dispatch<SetStateAction<boolean>>;
 }

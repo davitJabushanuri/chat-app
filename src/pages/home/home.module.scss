@@ -1,18 +1,46 @@
 .container {
   main {
-    .users {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+    .content {
+      overflow: hidden;
       padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  }
 
-      .user {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        background-color: rgb(188, 227, 222);
-        padding: 1rem;
+  @media (min-width: 768px) {
+    main {
+      .content {
+        grid-template-columns: 1fr 2fr;
       }
     }
+  }
+
+  @media (min-width: 1024px) {
+    main {
+      .content {
+        grid-template-columns: 1fr 3fr;
+      }
+    }
+  }
+
+  @media (min-width: 1440px) {
+    main {
+      .content {
+        grid-template-columns: 1fr 4fr;
+      }
+    }
+  }
+}
+
+.active {
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.hidden {
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 }

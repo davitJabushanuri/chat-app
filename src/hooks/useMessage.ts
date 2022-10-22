@@ -33,6 +33,7 @@ const sendMessage = async ({
         image,
         senderId,
         receiverId,
+        conversationId: `${senderId}${receiverId}`,
       }),
     });
     console.log(message);
