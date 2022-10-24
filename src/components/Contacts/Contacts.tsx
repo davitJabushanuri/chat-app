@@ -1,4 +1,4 @@
-import { ISetLayout, IUser } from "@/types/types";
+import { IUser } from "@/types/types";
 import Search from "../Search/Search";
 import User from "../User/User";
 import styles from "./Contacts.module.scss";
@@ -19,15 +19,15 @@ const Contacts = ({ users, setLayout }: IContactsProps) => {
       <h1>Chats</h1>
       <Search />
       <div className={styles.contacts}>
-        {users &&
-          users.map((user) => {
+        {sender &&
+          sender?.conversations?.map((conversation) => {
             return (
               <div
-                key={user.id}
+                key={conversation.id}
                 className={styles.user}
                 onClick={() => setLayout(true)}
               >
-                <User user={user} senderId={sender?.id} />
+                <User conversation={conversation} senderId={sender?.id} />
               </div>
             );
           })}

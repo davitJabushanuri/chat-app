@@ -7,26 +7,37 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
   if (method === "POST") {
     // check if conversation exists
     try {
-      const conversation = await prisma.conversation.findUnique({
+      const conversation = await prisma.conversation.findFirst({
         where: {
-          id: body.conversationId,
+          OR: [
+            {
+              id: {
+                equals: body.conversationId,
+              },
+            },
+            {
+              id: {
+                equals: body.conversationIdReverse,
+              },
+            },
+          ],
         },
       });
 
       // create conversation if it doesn't exist
       if (!conversation) {
-        await prisma.conversation.create({
+        await prisma.userConversation.create({
           data: {
-            id: body.conversationId,
-            users: {
-              connect: [
-                {
-                  id: body.senderId,
+            userId: body.userId,
+            conversation: {
+              create: {
+                id: body.conversationId,
+              },
+              connectOrCreate: {
+                where: {
+                  id: body.conversationIdReverse,
                 },
-                {
-                  id: body.receiverId,
-                },
-              ],
+              },
             },
           },
         });

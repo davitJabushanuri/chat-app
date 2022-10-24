@@ -13,8 +13,6 @@ interface IHomeProps {
 const Home = ({ users }: IHomeProps) => {
   const [layout, setLayout] = useState(false);
 
-  console.log(users);
-
   return (
     <div className={styles.container}>
       <main>

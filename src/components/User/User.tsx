@@ -1,21 +1,24 @@
 import useMessage from "@/hooks/useMessage";
-import { IUser } from "@/types/types";
+import { IConversation } from "@/types/types";
 import { useState } from "react";
 import styles from "./User.module.scss";
 
 interface IUserProps {
-  user: IUser;
+  conversation: IConversation;
   senderId: string | undefined;
 }
 
-const User = ({ user, senderId }: IUserProps) => {
+const User = ({ conversation, senderId }: IUserProps) => {
   const [message, setMessage] = useState("");
+
+  console.log(conversation);
+
+  const receiver = conversation.users.find((user) => user.id !== senderId);
 
   const messageMutation = useMessage();
   return (
     <div className={styles.container}>
-      <p>{user.name}</p>
-      <p>{user.email}</p>
+      <p>{receiver?.email ?? `Myself`}</p>
 
       <input
         type="text"
@@ -25,10 +28,11 @@ const User = ({ user, senderId }: IUserProps) => {
       <button
         onClick={() =>
           messageMutation.mutate({
-            content: "Hello",
+            content: message,
             image: "",
             senderId: senderId,
-            receiverId: user.id,
+            receiverId: receiver?.id,
+            conversationId: conversation?.id,
           })
         }
       >

@@ -1,11 +1,25 @@
-import { Dispatch } from "react";
-
 export interface IUser {
   id: string;
   name: string;
   email: string;
   emailVerified: Date | null;
   image: string | null;
+  conversations: IConversation[] | null;
+}
+
+export interface IConversation {
+  id: string;
+  messages: IMessage[];
+  users: IUser[];
+}
+
+export interface IMessage {
+  id: string;
+  content: string;
+  image?: string;
+  createdAt: Date;
+  senderId: string;
+  receiverId: string;
 }
 
 export interface IProvider {
@@ -17,5 +31,5 @@ export interface IProvider {
 }
 
 export interface ISetLayout {
-  setLayout: Dispatch<SetStateAction<boolean>>;
+  setLayout: (layout: boolean) => void;
 }
