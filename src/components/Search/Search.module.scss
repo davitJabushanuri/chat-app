@@ -1,0 +1,22 @@
+.container {
+  display: grid;
+  grid-template-columns: 1.4rem 1fr;
+  align-items: center;
+  padding: 0.6rem;
+  gap: 0.6rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 0.2rem 0.1rem rgba(160, 160, 160, 0.1);
+  background-color: #fff;
+  margin: 1rem 0;
+
+  .icon {
+    font-size: 1.4rem;
+    color: #a0a0a0;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    color: #a0a0a0;
+  }
+}

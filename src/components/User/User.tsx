@@ -5,12 +5,9 @@ import styles from "./User.module.scss";
 
 interface IUserProps {
   user: IUser;
-  senderId: string | undefined;
 }
 
 const User = ({ user }: IUserProps) => {
-  console.log(user);
-
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>

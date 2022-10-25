@@ -2,7 +2,7 @@ import { IUser } from "@/types/types";
 import Search from "../Search/Search";
 import User from "../User/User";
 import styles from "./Contacts.module.scss";
-import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 interface IContactsProps {
   users: IUser[];
@@ -10,27 +10,32 @@ interface IContactsProps {
 }
 
 const Contacts = ({ users, setLayout }: IContactsProps) => {
-  const { data: session } = useSession();
-
-  const sender = users.find((user) => user.email === session?.user?.email);
+  const [search, setSearch] = useState("");
 
   return (
     <div className={styles.container}>
       <h1>Chats</h1>
-      <Search />
+      <Search search={search} setSearch={setSearch} />
       <div className={styles.contacts}>
         {users &&
-          users?.map((user) => {
-            return (
-              <div
-                key={user.id}
-                className={styles.user}
-                onClick={() => setLayout(true)}
-              >
-                <User user={user} senderId={sender?.id} />
-              </div>
-            );
-          })}
+          users
+            ?.filter((user) => {
+              if (search === "") return user;
+              else if (user.name.toLowerCase().includes(search.toLowerCase())) {
+                return user;
+              }
+            })
+            .map((user) => {
+              return (
+                <div
+                  key={user.id}
+                  className={styles.user}
+                  onClick={() => setLayout(true)}
+                >
+                  <User user={user} />
+                </div>
+              );
+            })}
       </div>
     </div>
   );
