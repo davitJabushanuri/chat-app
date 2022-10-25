@@ -9,6 +9,5 @@ main {
 
 @media screen and (min-width: 1024px) {
   main {
-    direction: ltr;
   }
 }

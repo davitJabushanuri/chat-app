@@ -5,46 +5,15 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body, method } = req;
 
   if (method === "POST") {
-    // check if conversation exists
-    try {
-      const conversation = await prisma.conversation.findFirst({
-        where: {
-          OR: [
-            {
-              id: {
-                equals: body.conversationId,
-              },
-            },
-            {
-              id: {
-                equals: body.conversationIdReverse,
-              },
-            },
-          ],
-        },
-      });
-
-      // create conversation if it doesn't exist
-      if (!conversation) {
-        await prisma.userConversation.create({
+    const conversationId = body.conversationId
+      ? body.conversationId
+      : await prisma.conversation.create({
           data: {
-            userId: body.userId,
-            conversation: {
-              create: {
-                id: body.conversationId,
-              },
-              connectOrCreate: {
-                where: {
-                  id: body.conversationIdReverse,
-                },
-              },
-            },
+            id: body.receiverId + body.senderId,
           },
         });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+
+    console.log(conversationId);
 
     // create message
     try {
@@ -54,7 +23,7 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
           image: body.image,
           senderId: body.senderId,
           receiverId: body.receiverId,
-          conversationId: body.conversationId,
+          conversationId: conversationId.id,
         },
       });
       res

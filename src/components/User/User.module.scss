@@ -1,0 +1,49 @@
+.container {
+  padding: 0.8rem;
+  display: grid;
+  grid-template-columns: 40px 1fr 50px;
+  gap: 0.6rem;
+  border-radius: 0.6rem;
+  background-color: #fff;
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+
+  .imageContainer {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      font-size: 1rem;
+      overflow: hidden;
+      font-weight: 500;
+      color: #101010;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #a8a8a8;
+    }
+  }
+
+  .time {
+    font-size: 0.8rem;
+    color: #a8a8a8;
+  }
+}

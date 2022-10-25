@@ -1,43 +1,28 @@
-import useMessage from "@/hooks/useMessage";
-import { IConversation } from "@/types/types";
-import { useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
+import { IUser } from "@/types/types";
 import styles from "./User.module.scss";
 
 interface IUserProps {
-  conversation: IConversation;
+  user: IUser;
   senderId: string | undefined;
 }
 
-const User = ({ conversation, senderId }: IUserProps) => {
-  const [message, setMessage] = useState("");
+const User = ({ user }: IUserProps) => {
+  console.log(user);
 
-  console.log(conversation);
-
-  const receiver = conversation.users.find((user) => user.id !== senderId);
-
-  const messageMutation = useMessage();
   return (
     <div className={styles.container}>
-      <p>{receiver?.email ?? `Myself`}</p>
-
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button
-        onClick={() =>
-          messageMutation.mutate({
-            content: message,
-            image: "",
-            senderId: senderId,
-            receiverId: receiver?.id,
-            conversationId: conversation?.id,
-          })
-        }
-      >
-        Send Message
-      </button>
+      <div className={styles.imageContainer}>
+        <img src={user.image || ""} alt="user-image" />
+      </div>
+      <div className={styles.info}>
+        <h3>{user.name}</h3>
+        <p>last message</p>
+      </div>
+      <div className={styles.time}>
+        <p>11:45PM</p>
+      </div>
     </div>
   );
 };

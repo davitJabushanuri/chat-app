@@ -19,15 +19,15 @@ const Contacts = ({ users, setLayout }: IContactsProps) => {
       <h1>Chats</h1>
       <Search />
       <div className={styles.contacts}>
-        {sender &&
-          sender?.conversations?.map((conversation) => {
+        {users &&
+          users?.map((user) => {
             return (
               <div
-                key={conversation.id}
+                key={user.id}
                 className={styles.user}
                 onClick={() => setLayout(true)}
               >
-                <User conversation={conversation} senderId={sender?.id} />
+                <User user={user} senderId={sender?.id} />
               </div>
             );
           })}
