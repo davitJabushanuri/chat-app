@@ -1,7 +1,13 @@
 .container {
-  background-color: #fafafa;
   padding: 1rem;
   width: 100%;
+  height: 100%;
+
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
   .contacts {
     display: flex;
     flex-direction: column;

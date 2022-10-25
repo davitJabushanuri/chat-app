@@ -14,7 +14,7 @@ const Contacts = ({ users, setLayout }: IContactsProps) => {
 
   return (
     <div className={styles.container}>
-      <h1>Chats</h1>
+      <h1>Contacts</h1>
       <Search search={search} setSearch={setSearch} />
       <div className={styles.contacts}>
         {users &&

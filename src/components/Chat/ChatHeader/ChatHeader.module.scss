@@ -1,0 +1,45 @@
+.container {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  border-bottom: 2px solid #e5e5ea;
+
+  .backButton {
+    button {
+      font-size: 2rem;
+      color: rgb(104, 102, 102);
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: rgb(49, 48, 48);
+      }
+    }
+  }
+
+  .info {
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: rgb(104, 102, 102);
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    gap: 0;
+
+    .backButton {
+      button {
+        display: none;
+      }
+    }
+  }
+}
