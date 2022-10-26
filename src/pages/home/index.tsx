@@ -11,7 +11,13 @@ interface IHomeProps {
 }
 
 const Home = ({ users }: IHomeProps) => {
+  const [messages, setMessages] = useState({
+    messages: [],
+    sessionOwnerId: "",
+    receiverId: "",
+  });
   const [layout, setLayout] = useState(false);
+  console.log(messages);
 
   return (
     <div className={styles.container}>
@@ -21,11 +27,15 @@ const Home = ({ users }: IHomeProps) => {
         </div>
         <div className={styles.content}>
           <section className={!layout ? styles.active : styles.hidden}>
-            <Contacts users={users} setLayout={setLayout} />
+            <Contacts
+              users={users}
+              setLayout={setLayout}
+              setMessages={setMessages}
+            />
           </section>
 
           <section className={layout ? styles.active : styles.hidden}>
-            <Chat setLayout={setLayout} />
+            <Chat messages={messages} setLayout={setLayout} />
           </section>
         </div>
       </main>

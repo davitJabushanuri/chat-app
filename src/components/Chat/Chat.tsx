@@ -1,61 +1,24 @@
-import { ISetLayout } from "@/types/types";
+import { IMessage } from "@/types/types";
 import Message from "../Message/Message";
 import styles from "./Chat.module.scss";
 import ChatHeader from "./ChatHeader/ChatHeader";
 
-import { IoSend } from "react-icons/io5";
+import { RiSendPlaneFill } from "react-icons/ri";
+import useMessage from "@/hooks/useMessage";
+import { useState } from "react";
 
-const Chat = ({ setLayout }: ISetLayout) => {
-  const messages = [
-    {
-      id: 1,
-      isSender: true,
-      message: "Hello",
-    },
-    {
-      id: 2,
-      isSender: false,
-      message: "How are you?",
-    },
+interface IChatProps {
+  messages: {
+    messages: IMessage[];
+    sessionOwnerId: string;
+    receiverId: string;
+  };
+  setLayout: () => void;
+}
 
-    {
-      id: 3,
-      isSender: true,
-      message: "I am fine",
-    },
-
-    {
-      id: 4,
-      isSender: false,
-      message: "What about you?",
-    },
-
-    {
-      id: 5,
-      isSender: true,
-      message: "I am fine too",
-    },
-    {
-      id: 5,
-      isSender: true,
-      message: "I am fine too",
-    },
-    {
-      id: 5,
-      isSender: true,
-      message: "I am fine too",
-    },
-    {
-      id: 5,
-      isSender: true,
-      message: "I am fine too",
-    },
-    {
-      id: 5,
-      isSender: true,
-      message: "I am fine too",
-    },
-  ];
+const Chat = ({ messages, setLayout }: IChatProps) => {
+  const [message, setMessage] = useState("");
+  const messageMutation = useMessage();
 
   return (
     <div className={styles.container}>
@@ -64,23 +27,38 @@ const Chat = ({ setLayout }: ISetLayout) => {
       </div>
 
       <div className={styles.messages}>
-        {messages.map((message) => {
-          return (
-            <Message
-              key={message.id}
-              id={message.id}
-              isSender={message.isSender}
-              message={message.message}
-            />
-          );
-        })}
+        {messages.messages &&
+          messages.messages.map((message) => {
+            return (
+              <Message
+                key={message.id}
+                isSender={message.senderId === messages.sessionOwnerId}
+                message={message.content}
+              />
+            );
+          })}
       </div>
 
       <div className={styles.input}>
         <div className={styles.form}>
-          <input type="text" placeholder="Type a message" />
-          <button>
-            <IoSend />
+          <input
+            type="text"
+            placeholder="Type a message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button
+            onClick={() =>
+              messageMutation.mutate({
+                content: message,
+                image: "",
+                receiverId: messages.receiverId,
+                senderId: messages.sessionOwnerId,
+                conversationId: "",
+              })
+            }
+          >
+            <RiSendPlaneFill />
           </button>
         </div>
       </div>

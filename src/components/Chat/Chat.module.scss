@@ -1,11 +1,14 @@
 .container {
-  border-left: 2px solid #e5e5ea;
   width: 100%;
+  background-color: #fff;
 
   .messages {
     padding: 1rem;
     height: calc(100vh - 60px - 60px - 100px);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
   .input {

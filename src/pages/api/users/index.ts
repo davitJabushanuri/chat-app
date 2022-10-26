@@ -6,11 +6,8 @@ const Users = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const users = await prisma.user.findMany({
         include: {
-          userConvarsations: {
-            include: {
-              conversation: true,
-            },
-          },
+          sentMessages: true,
+          receivedMessages: true,
         },
       });
       res.status(200).json(users);

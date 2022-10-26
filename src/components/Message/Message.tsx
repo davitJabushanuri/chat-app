@@ -1,12 +1,11 @@
 import styles from "./Message.module.scss";
 
 interface IMessage {
-  id: number;
   isSender: boolean;
   message: string;
 }
 
-const Message = ({ id, isSender, message }: IMessage) => {
+const Message = ({ isSender, message }: IMessage) => {
   return (
     <div className={styles.container}>
       <div

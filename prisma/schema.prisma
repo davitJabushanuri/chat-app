@@ -58,24 +58,15 @@ model User {
     accounts      Account[]
     sessions      Session[]
 
-    userConvarsations UserConversation[]
-    sentMessages      Message[]          @relation("sender")
-    receivedMessages  Message[]          @relation("receiver")
+    conversations    Conversation[]
+    sentMessages     Message[]      @relation("sender")
+    receivedMessages Message[]      @relation("receiver")
 }
 
 model Conversation {
-    id                String             @id @unique
-    userConvarsations UserConversation[]
-    Message           Message[]
-}
-
-model UserConversation {
-    user           User         @relation(fields: [userId], references: [id])
-    userId         String
-    conversation   Conversation @relation(fields: [conversationId], references: [id])
-    conversationId String
-
-    @@id([userId, conversationId])
+    id       String    @id @unique
+    users    User[]
+    messages Message[]
 }
 
 model Message {

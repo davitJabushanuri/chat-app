@@ -5,17 +5,8 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body, method } = req;
 
   if (method === "POST") {
-    const conversationId = body.conversationId
-      ? body.conversationId
-      : await prisma.conversation.create({
-          data: {
-            id: body.receiverId + body.senderId,
-          },
-        });
+    // connect conversation to users
 
-    console.log(conversationId);
-
-    // create message
     try {
       const message = await prisma.message.create({
         data: {
@@ -23,7 +14,9 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
           image: body.image,
           senderId: body.senderId,
           receiverId: body.receiverId,
-          conversationId: conversationId.id,
+        },
+        include: {
+          conversation: true,
         },
       });
       res

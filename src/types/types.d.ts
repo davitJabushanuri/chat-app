@@ -5,6 +5,8 @@ export interface IUser {
   emailVerified: Date | null;
   image: string | null;
   conversations: IConversation[] | null;
+  sentMessages: IMessage[];
+  receivedMessages: IMessage[];
 }
 
 export interface IConversation {
