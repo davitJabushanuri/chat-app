@@ -3,7 +3,7 @@ import styles from "./ChatHeader.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 
 interface IChatHeaderProps {
-  setLayout: any;
+  setLayout: (layout: boolean) => void;
   receiverName: string;
 }
 

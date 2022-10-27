@@ -25,6 +25,9 @@ const useMessage = () => {
         console.log("Message sent successfully");
         QueryClient.invalidateQueries(["users"]);
       },
+      onError: () => {
+        console.log("Error sending message");
+      },
     }
   );
 };

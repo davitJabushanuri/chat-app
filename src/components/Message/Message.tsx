@@ -1,11 +1,13 @@
 import styles from "./Message.module.scss";
+import Moment from "react-moment";
 
 interface IMessage {
   isSender: boolean;
   message: string;
+  time: Date;
 }
 
-const Message = ({ isSender, message }: IMessage) => {
+const Message = ({ isSender, message, time }: IMessage) => {
   return (
     <div className={styles.container}>
       <div
@@ -14,7 +16,9 @@ const Message = ({ isSender, message }: IMessage) => {
         }`}
       >
         <p className={styles.text}>{message}</p>
-        <span className={styles.time}>09:30</span>
+        <span className={styles.time}>
+          {<Moment format="HH:mm">{time}</Moment>}
+        </span>
       </div>
     </div>
   );

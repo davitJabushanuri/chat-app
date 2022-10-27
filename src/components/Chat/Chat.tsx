@@ -14,7 +14,7 @@ interface IChatProps {
     receiverName: string;
   };
   sessionOwnerId: string;
-  setLayout: unknown;
+  setLayout: (layout: boolean) => void;
 }
 
 const Chat = ({
@@ -57,6 +57,7 @@ const Chat = ({
                   key={message.id}
                   isSender={message.senderId === sessionOwnerId}
                   message={message.content}
+                  time={message.createdAt}
                 />
               );
             })}
@@ -66,7 +67,7 @@ const Chat = ({
         <div className={styles.form}>
           <input
             type="text"
-            placeholder="Type a message"
+            placeholder="Your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />

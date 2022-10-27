@@ -1,6 +1,6 @@
 .container {
   main {
-    background-color: #fafafa;
+    background-color: #242424;
     .content {
       display: grid;
       grid-template-columns: 1fr;
@@ -10,28 +10,11 @@
   @media (min-width: 769px) {
     main {
       .content {
-        grid-template-columns: 2fr 3fr;
-      }
-    }
-  }
-
-  @media (min-width: 1024px) {
-    main {
-      .content {
-        grid-template-columns: 2fr 4fr;
-      }
-    }
-  }
-
-  @media (min-width: 1440px) {
-    main {
-      .content {
-        grid-template-columns: 1fr 4fr;
+        grid-template-columns: 300px 1fr;
       }
     }
   }
 }
-
 .active {
   @media screen and (max-width: 768px) {
     display: flex;

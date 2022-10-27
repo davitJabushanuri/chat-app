@@ -15,7 +15,7 @@ const Search = ({ search, setSearch }: ISearchProps) => {
       </div>
       <input
         type="text"
-        placeholder="Search contacts"
+        placeholder="Search contacts..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

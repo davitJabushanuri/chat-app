@@ -1,24 +1,21 @@
 .container {
-  padding: 0.8rem;
+  padding: 0.8rem 1rem;
   display: grid;
-  grid-template-columns: 50px 1fr 50px;
-  grid-template-rows: 50px;
-  gap: 0.6rem;
-  border-radius: 0.6rem;
-  background-color: #fff;
-  box-shadow: 0 0 0.4rem rgba(112, 111, 111, 0.1);
+  grid-template-columns: 40px 1fr 50px;
+  grid-template-rows: 40px;
+  gap: 0.8rem;
 
   &:hover {
-    background-color: #fafafa;
+    background-color: #35373b;
     cursor: pointer;
   }
 
   .imageContainer {
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #ffffff;
 
     img {
       width: 100%;
@@ -28,19 +25,17 @@
   }
 
   .info {
-    display: flex;
-    flex-direction: column;
-
     h3 {
-      font-size: 1rem;
       overflow: hidden;
+      font-size: 1rem;
       font-weight: 500;
-      color: #101010;
+      color: #f3f3f3;
     }
 
     p {
-      font-size: 0.9rem;
-      color: #a8a8a8;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #797979;
     }
   }
 

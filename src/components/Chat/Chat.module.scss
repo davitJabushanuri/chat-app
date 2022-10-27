@@ -1,10 +1,9 @@
 .container {
-  width: 100%;
-  background-color: #fff;
+  background-color: #1b1b1b;
 
   .messages {
     padding: 1rem;
-    height: calc(100vh - 60px - 60px - 100px);
+    height: calc(100vh - 60px - 80px - 80px);
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -13,15 +12,15 @@
 
   .input {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #242424;
     padding: 1rem;
     display: flex;
     align-items: center;
 
     .form {
-      background-color: #e5e5ea;
-      padding: 0.5rem 1rem;
-      border-radius: 100vw;
+      background-color: #35373b;
+      padding: 0.7rem 1rem;
+      border-radius: 0.8rem;
       width: 100%;
       display: flex;
       align-items: center;
@@ -29,7 +28,7 @@
       justify-content: space-between;
 
       input {
-        flex: 1;
+        color: #7d7f83;
         border: none;
         background-color: transparent;
         outline: none;
@@ -37,12 +36,16 @@
       }
 
       button {
+        padding-left: 0.8rem;
         background-color: transparent;
-        border: none;
-        outline: none;
-        font-size: 1.5rem;
-        color: rgb(18, 22, 233);
+        font-size: 1.1rem;
+        color: #2c8963;
         cursor: pointer;
+        border-left: 1px solid #5c5c5c;
+
+        &:hover {
+          color: #31b47e;
+        }
       }
     }
   }

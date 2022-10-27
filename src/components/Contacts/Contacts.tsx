@@ -14,7 +14,6 @@ interface IContactsProps {
 const filterMessages = (
   userId: string,
   userName: string,
-  sessionOwner: IUser | undefined,
   setReceiver: (receiver: { receiverId: string; receiverName: string }) => void
 ) => {
   setReceiver({
@@ -43,7 +42,8 @@ const Contacts = ({
       <div className={styles.contacts}>
         {users.length > 0 &&
           users
-            ?.filter((user) => {
+            .filter((user) => user.id !== sessionOwner?.id)
+            .filter((user) => {
               if (search === "") return user;
               else if (user.name.toLowerCase().includes(search.toLowerCase())) {
                 return user;
@@ -55,12 +55,7 @@ const Contacts = ({
                   key={user.id}
                   className={styles.user}
                   onClick={() => {
-                    filterMessages(
-                      user.id,
-                      user.name,
-                      sessionOwner,
-                      setReceiver
-                    );
+                    filterMessages(user.id, user.name, setReceiver);
                     setLayout(true);
                   }}
                 >

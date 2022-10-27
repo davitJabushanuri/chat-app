@@ -1,22 +1,24 @@
 .container {
   padding: 1rem;
+  height: 80px;
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 100%;
-  border-bottom: 2px solid #e5e5ea;
+  background-color: #242424;
+  color: #f3f3f3;
+  border-left: 1px solid #2b2b2b;
+  border-bottom: 1px solid #252525;
 
   .backButton {
     button {
       font-size: 2rem;
-      color: rgb(104, 102, 102);
-      background-color: #fff;
+      color: rgb(209, 207, 207);
       display: flex;
       align-items: center;
       justify-content: center;
 
       &:hover {
-        color: rgb(49, 48, 48);
+        color: rgb(150, 150, 150);
       }
     }
   }
@@ -30,6 +32,7 @@
     p {
       font-size: 0.8rem;
       color: rgb(104, 102, 102);
+      font-weight: 500;
     }
   }
 
