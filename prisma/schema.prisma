@@ -64,21 +64,23 @@ model User {
 }
 
 model Conversation {
-    id       String    @id @unique
-    users    User[]
-    messages Message[]
+    id        String    @id @default(cuid())
+    name      String?
+    users     User[]
+    messages  Message[]
+    createdAt DateTime  @default(now())
 }
 
 model Message {
-    id             String        @id @default(cuid())
-    createdAt      DateTime      @default(now())
-    updatedAt      DateTime      @updatedAt
+    id             String       @id @default(cuid())
+    createdAt      DateTime     @default(now())
+    updatedAt      DateTime     @updatedAt
     content        String
     image          String?
-    sender         User          @relation(name: "sender", fields: [senderId], references: [id])
+    sender         User         @relation(name: "sender", fields: [senderId], references: [id])
     senderId       String
-    receiver       User          @relation(name: "receiver", fields: [receiverId], references: [id])
+    receiver       User         @relation(name: "receiver", fields: [receiverId], references: [id])
     receiverId     String
-    conversation   Conversation? @relation(fields: [conversationId], references: [id])
-    conversationId String?
+    conversation   Conversation @relation(fields: [conversationId], references: [id])
+    conversationId String
 }

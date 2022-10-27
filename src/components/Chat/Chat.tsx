@@ -12,18 +12,24 @@ interface IChatProps {
     messages: IMessage[];
     sessionOwnerId: string;
     receiverId: string;
+    receiverName: string;
   };
-  setLayout: () => void;
+  setLayout: any;
 }
 
 const Chat = ({ messages, setLayout }: IChatProps) => {
   const [message, setMessage] = useState("");
   const messageMutation = useMessage();
 
+  if (!messages.receiverName) return <div className={styles.container}></div>;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <ChatHeader setLayout={setLayout} />
+        <ChatHeader
+          setLayout={setLayout}
+          receiverName={messages.receiverName}
+        />
       </div>
 
       <div className={styles.messages}>
@@ -54,7 +60,7 @@ const Chat = ({ messages, setLayout }: IChatProps) => {
                 image: "",
                 receiverId: messages.receiverId,
                 senderId: messages.sessionOwnerId,
-                conversationId: "",
+                conversationId: "cl9r3h1py0000u5lsf9x632gn",
               })
             }
           >

@@ -1,40 +1,46 @@
-import { IMessage, IUser } from "@/types/types";
+import { IUser } from "@/types/types";
 import Search from "../Search/Search";
 import User from "../User/User";
 import styles from "./Contacts.module.scss";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 
 interface IContactsProps {
   users: IUser[];
+  sessionOwner: IUser;
   setLayout: (layout: boolean) => void;
-  setMessages: (messages: IMessage[]) => void;
+  setMessages: any;
 }
 
 const filterMessages = (
   userId: string,
-  user: IUser | undefined,
+  userName: string,
+  sessionOwner: IUser | undefined,
   setMessages: any
 ) => {
   setMessages(null);
-  const messages = user ? [...user.sentMessages, ...user.receivedMessages] : [];
-  const messagesWithUser = messages.filter((message) => {
+  const messages = sessionOwner?.conversations
+    ? sessionOwner?.conversations[0]?.messages
+    : [];
+  const messagesWithUser = messages?.filter((message) => {
     return message.senderId === userId || message.receiverId === userId;
   });
+  // sort array by date
+
   setMessages({
     messages: messagesWithUser,
-    sessionOwnerId: user ? user.id : "",
+    sessionOwnerId: sessionOwner ? sessionOwner.id : "",
     receiverId: userId,
+    receiverName: userName,
   });
 };
 
-const Contacts = ({ users, setLayout, setMessages }: IContactsProps) => {
+const Contacts = ({
+  users,
+  sessionOwner,
+  setLayout,
+  setMessages,
+}: IContactsProps) => {
   const [search, setSearch] = useState("");
-
-  const { data: session } = useSession();
-  const sessionOwner = users.find(
-    (user) => user.email === session?.user?.email
-  );
 
   return (
     <div className={styles.container}>
@@ -55,7 +61,12 @@ const Contacts = ({ users, setLayout, setMessages }: IContactsProps) => {
                   key={user.id}
                   className={styles.user}
                   onClick={() => {
-                    filterMessages(user.id, sessionOwner, setMessages);
+                    filterMessages(
+                      user.id,
+                      user.name,
+                      sessionOwner,
+                      setMessages
+                    );
                     setLayout(true);
                   }}
                 >

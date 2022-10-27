@@ -14,6 +14,7 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
           image: body.image,
           senderId: body.senderId,
           receiverId: body.receiverId,
+          conversationId: body.conversationId,
         },
         include: {
           conversation: true,
