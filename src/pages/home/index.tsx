@@ -1,22 +1,36 @@
 import styles from "./home.module.scss";
 
-import { unstable_getServerSession } from "next-auth";
 import { IUser } from "@/types/types";
 import Contacts from "@/components/Contacts/Contacts";
 import Header from "@/components/Header/Header";
 import { useState } from "react";
 import Chat from "@/components/Chat/Chat";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 interface IHomeProps {
-  users: IUser[];
-  sessionOwner: IUser;
+  usersPlaceholder: IUser[];
 }
 
-const Home = ({ users, sessionOwner }: IHomeProps) => {
-  const [messages, setMessages] = useState({
-    messages: [],
-    sessionOwnerId: "",
+const Home = ({ usersPlaceholder }: IHomeProps) => {
+  const { data: session } = useSession();
+
+  const users = useQuery(
+    ["users"],
+    async () => {
+      const res = await fetch("/api/users");
+      return res.json();
+    },
+    {
+      initialData: usersPlaceholder,
+    }
+  );
+
+  const sessionOwner = users?.data.find(
+    (user: IUser) => user.email === session?.user?.email
+  );
+
+  const [receiver, setReceiver] = useState({
     receiverId: "",
     receiverName: "",
   });
@@ -31,15 +45,20 @@ const Home = ({ users, sessionOwner }: IHomeProps) => {
         <div className={styles.content}>
           <section className={!layout ? styles.active : styles.hidden}>
             <Contacts
-              users={users}
+              users={users.data}
               sessionOwner={sessionOwner}
               setLayout={setLayout}
-              setMessages={setMessages}
+              setReceiver={setReceiver}
             />
           </section>
 
           <section className={layout ? styles.active : styles.hidden}>
-            <Chat messages={messages} setLayout={setLayout} />
+            <Chat
+              messages={sessionOwner?.conversations[0].messages}
+              sessionOwnerId={sessionOwner?.id}
+              receiver={receiver}
+              setLayout={setLayout}
+            />
           </section>
         </div>
       </main>
@@ -49,28 +68,13 @@ const Home = ({ users, sessionOwner }: IHomeProps) => {
 
 export default Home;
 
-export const getServerSideProps = async (context: any) => {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions
-  );
+export const getServerSideProps = async () => {
   const res = await fetch("http://localhost:3000/api/users");
-  const data = await res.json();
-  const users = data.filter((user: IUser) => {
-    return user.email !== session?.user?.email;
-  });
-
-  const sessionOwner =
-    data.length > 1 &&
-    data.find((user: IUser) => {
-      return user.email === session?.user?.email;
-    });
+  const usersPlaceholder = await res.json();
 
   return {
     props: {
-      users,
-      sessionOwner,
+      usersPlaceholder,
     },
   };
 };

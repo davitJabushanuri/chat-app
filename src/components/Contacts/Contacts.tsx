@@ -8,27 +8,21 @@ interface IContactsProps {
   users: IUser[];
   sessionOwner: IUser;
   setLayout: (layout: boolean) => void;
-  setMessages: any;
+  setReceiver: (receiver: { receiverId: string; receiverName: string }) => void;
 }
 
 const filterMessages = (
   userId: string,
   userName: string,
   sessionOwner: IUser | undefined,
-  setMessages: any
+  setReceiver: (receiver: { receiverId: string; receiverName: string }) => void
 ) => {
-  setMessages(null);
-  const messages = sessionOwner?.conversations
-    ? sessionOwner?.conversations[0]?.messages
-    : [];
-  const messagesWithUser = messages?.filter((message) => {
-    return message.senderId === userId || message.receiverId === userId;
+  setReceiver({
+    receiverId: "",
+    receiverName: "",
   });
-  // sort array by date
 
-  setMessages({
-    messages: messagesWithUser,
-    sessionOwnerId: sessionOwner ? sessionOwner.id : "",
+  setReceiver({
     receiverId: userId,
     receiverName: userName,
   });
@@ -38,7 +32,7 @@ const Contacts = ({
   users,
   sessionOwner,
   setLayout,
-  setMessages,
+  setReceiver,
 }: IContactsProps) => {
   const [search, setSearch] = useState("");
 
@@ -65,7 +59,7 @@ const Contacts = ({
                       user.id,
                       user.name,
                       sessionOwner,
-                      setMessages
+                      setReceiver
                     );
                     setLayout(true);
                   }}

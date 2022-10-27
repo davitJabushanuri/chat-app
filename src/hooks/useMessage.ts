@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface IMessageMutation {
   content: string;
@@ -9,6 +9,8 @@ interface IMessageMutation {
 }
 
 const useMessage = () => {
+  const QueryClient = useQueryClient();
+
   return useMutation(
     ({
       content,
@@ -17,7 +19,13 @@ const useMessage = () => {
       receiverId,
       conversationId,
     }: IMessageMutation) =>
-      sendMessage({ content, image, senderId, receiverId, conversationId })
+      sendMessage({ content, image, senderId, receiverId, conversationId }),
+    {
+      onSuccess: () => {
+        console.log("Message sent successfully");
+        QueryClient.invalidateQueries(["users"]);
+      },
+    }
   );
 };
 

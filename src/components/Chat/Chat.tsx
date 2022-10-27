@@ -1,4 +1,3 @@
-import { IMessage } from "@/types/types";
 import Message from "../Message/Message";
 import styles from "./Chat.module.scss";
 import ChatHeader from "./ChatHeader/ChatHeader";
@@ -6,43 +5,61 @@ import ChatHeader from "./ChatHeader/ChatHeader";
 import { RiSendPlaneFill } from "react-icons/ri";
 import useMessage from "@/hooks/useMessage";
 import { useState } from "react";
+import { IMessage } from "@/types/types";
 
 interface IChatProps {
-  messages: {
-    messages: IMessage[];
-    sessionOwnerId: string;
+  messages: IMessage[];
+  receiver: {
     receiverId: string;
     receiverName: string;
   };
-  setLayout: any;
+  sessionOwnerId: string;
+  setLayout: unknown;
 }
 
-const Chat = ({ messages, setLayout }: IChatProps) => {
+const Chat = ({
+  messages,
+  sessionOwnerId,
+  receiver,
+  setLayout,
+}: IChatProps) => {
   const [message, setMessage] = useState("");
   const messageMutation = useMessage();
 
-  if (!messages.receiverName) return <div className={styles.container}></div>;
+  if (!receiver.receiverName) return <div className={styles.container}></div>;
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <ChatHeader
           setLayout={setLayout}
-          receiverName={messages.receiverName}
+          receiverName={receiver.receiverName}
         />
       </div>
 
       <div className={styles.messages}>
-        {messages.messages &&
-          messages.messages.map((message) => {
-            return (
-              <Message
-                key={message.id}
-                isSender={message.senderId === messages.sessionOwnerId}
-                message={message.content}
-              />
-            );
-          })}
+        {messages &&
+          messages
+            .filter((message) => {
+              if (receiver.receiverId) {
+                if (
+                  message.senderId === receiver.receiverId ||
+                  message.receiverId === receiver.receiverId
+                ) {
+                  return message;
+                }
+              }
+              return null;
+            })
+            .map((message) => {
+              return (
+                <Message
+                  key={message.id}
+                  isSender={message.senderId === sessionOwnerId}
+                  message={message.content}
+                />
+              );
+            })}
       </div>
 
       <div className={styles.input}>
@@ -58,8 +75,8 @@ const Chat = ({ messages, setLayout }: IChatProps) => {
               messageMutation.mutate({
                 content: message,
                 image: "",
-                receiverId: messages.receiverId,
-                senderId: messages.sessionOwnerId,
+                receiverId: receiver.receiverId,
+                senderId: sessionOwnerId,
                 conversationId: "cl9r3h1py0000u5lsf9x632gn",
               })
             }
