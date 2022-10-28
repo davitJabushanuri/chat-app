@@ -3,8 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: #1b1b1b;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #f2f2f2;
 
   h2 {
     font-size: 1.2rem;
@@ -12,11 +13,11 @@
   }
 
   button {
-    background-color: #fff;
+    background-color: transparent;
     border: none;
     cursor: pointer;
     font-weight: 500;
-    color: #000;
+    color: #f3f3f3;
 
     &:hover {
       color: #ff0000;

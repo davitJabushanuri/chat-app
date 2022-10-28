@@ -57,8 +57,10 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
             .filter((message) => {
               if (receiver.receiverId) {
                 if (
-                  message.senderId === receiver.receiverId ||
-                  message.receiverId === receiver.receiverId
+                  (message.senderId === receiver.receiverId &&
+                    message.receiverId === sessionOwner.id) ||
+                  (message.receiverId === receiver.receiverId &&
+                    message.senderId === sessionOwner.id)
                 ) {
                   return message;
                 }
@@ -92,15 +94,16 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
             onChange={(e) => setMessage(e.target.value)}
           />
           <button
-            onClick={() =>
+            onClick={() => {
               messageMutation.mutate({
                 content: message,
                 image: "",
                 receiverId: receiver?.receiverId,
                 senderId: sessionOwner?.id,
                 conversationId: "cl9r3h1py0000u5lsf9x632gn",
-              })
-            }
+              });
+              setMessage("");
+            }}
           >
             <RiSendPlaneFill />
           </button>
