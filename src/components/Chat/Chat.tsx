@@ -7,6 +7,8 @@ import useMessage from "@/hooks/useMessage";
 import { useState } from "react";
 import { IMessage, IUser } from "@/types/types";
 
+import React, { useEffect, useRef } from "react";
+
 interface IChatProps {
   messages: IMessage[];
   receiver: {
@@ -21,6 +23,20 @@ interface IChatProps {
 const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
   const [message, setMessage] = useState("");
   const messageMutation = useMessage();
+
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef?.current?.scrollIntoView({
+      // behavior: "smooth",
+      // block: "end",
+      // inline: "nearest",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  });
 
   if (!receiver.receiverName)
     return <div style={{ height: "calc(100vh - 60px)" }}></div>;
@@ -51,15 +67,18 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
             })
             .map((message) => {
               return (
-                <Message
-                  key={message.id}
-                  isSender={message.senderId === sessionOwner.id}
-                  message={message.content}
-                  receiverName={receiver.receiverName}
-                  receiverImage={receiver.receiverImage}
-                  senderImage={sessionOwner?.image}
-                  time={message.createdAt}
-                />
+                <>
+                  <Message
+                    key={message.id}
+                    isSender={message.senderId === sessionOwner.id}
+                    message={message.content}
+                    receiverName={receiver.receiverName}
+                    receiverImage={receiver.receiverImage}
+                    senderImage={sessionOwner?.image}
+                    time={message.createdAt}
+                  />
+                  <div ref={messagesEndRef} />
+                </>
               );
             })}
       </div>
