@@ -46,6 +46,8 @@ const Contacts = ({
 }: IContactsProps) => {
   const [search, setSearch] = useState("");
 
+  console.log(users);
+
   return (
     <div className={styles.container}>
       <h1>Contacts</h1>
