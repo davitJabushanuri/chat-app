@@ -1,18 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./ChatHeader.module.scss";
-
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-
+import Moment from "react-moment";
 interface IChatHeaderProps {
   setLayout: (layout: boolean) => void;
   receiverName: string;
   receiverImage: string;
+  lastMessageTime: Date;
 }
 
 const ChatHeader = ({
   setLayout,
   receiverName,
   receiverImage,
+  lastMessageTime,
 }: IChatHeaderProps) => {
   return (
     <div className={styles.container}>
@@ -27,7 +28,9 @@ const ChatHeader = ({
         </div>
         <div>
           <h2>{receiverName}</h2>
-          <p>Last seen 2 days ago</p>
+          <p>
+            <span>Last seen</span> <Moment calendar>{lastMessageTime}</Moment>
+          </p>
         </div>
       </div>
     </div>

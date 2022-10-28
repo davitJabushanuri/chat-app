@@ -46,8 +46,6 @@ const Contacts = ({
 }: IContactsProps) => {
   const [search, setSearch] = useState("");
 
-  console.log(users);
-
   return (
     <div className={styles.container}>
       <h1>Contacts</h1>
@@ -72,7 +70,7 @@ const Contacts = ({
                     setLayout(true);
                   }}
                 >
-                  <User user={user} />
+                  <User user={user} sessionOwnerId={sessionOwner?.id} />
                 </div>
               );
             })}

@@ -36,7 +36,7 @@ const Message = ({
           <span className={styles.name}>{isSender ? "You" : receiverName}</span>
 
           <span className={styles.time}>
-            {<Moment format="HH:mm">{time}</Moment>}
+            {<Moment calendar>{time}</Moment>}
           </span>
         </div>
         <div className={styles.message}>

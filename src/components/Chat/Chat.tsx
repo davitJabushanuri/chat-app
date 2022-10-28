@@ -48,6 +48,7 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
           setLayout={setLayout}
           receiverName={receiver.receiverName}
           receiverImage={receiver.receiverImage}
+          lastMessageTime={messages[messages.length - 1]?.createdAt}
         />
       </div>
 

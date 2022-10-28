@@ -36,6 +36,12 @@
       font-size: 0.8rem;
       font-weight: 500;
       color: #797979;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
   }
 

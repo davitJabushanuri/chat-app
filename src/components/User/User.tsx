@@ -1,13 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import { IUser } from "@/types/types";
 import styles from "./User.module.scss";
 
+import Moment from "react-moment";
+
 interface IUserProps {
   user: IUser;
+  sessionOwnerId: string;
 }
 
-const User = ({ user }: IUserProps) => {
+const User = ({ user, sessionOwnerId }: IUserProps) => {
+  const messagesWihSessionOwner = user.conversations
+    ? user.conversations[0]?.messages.filter((message) => {
+        if (
+          (message.senderId === sessionOwnerId &&
+            message.receiverId === user.id) ||
+          (message.receiverId === sessionOwnerId &&
+            message.senderId === user.id)
+        ) {
+          return message;
+        }
+      })
+    : [];
+
+  const latestMessage = messagesWihSessionOwner
+    ? messagesWihSessionOwner[messagesWihSessionOwner.length - 1]
+    : null;
+
+  console.log(latestMessage);
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -15,10 +35,12 @@ const User = ({ user }: IUserProps) => {
       </div>
       <div className={styles.info}>
         <h3>{user.name}</h3>
-        <p>last message</p>
+        <p>{latestMessage ? latestMessage.content : ""}</p>
       </div>
       <div className={styles.time}>
-        <p>11:45PM</p>
+        <p>
+          <Moment format="LT" date={latestMessage?.createdAt} />
+        </p>
       </div>
     </div>
   );

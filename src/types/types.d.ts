@@ -4,7 +4,7 @@ export interface IUser {
   email: string;
   emailVerified: Date | null;
   image: string | null;
-  conversations: IConversation[] | null;
+  conversations: IConversation[];
   sentMessages: IMessage[];
   receivedMessages: IMessage[];
 }
