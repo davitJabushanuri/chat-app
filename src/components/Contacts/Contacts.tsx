@@ -8,22 +8,33 @@ interface IContactsProps {
   users: IUser[];
   sessionOwner: IUser;
   setLayout: (layout: boolean) => void;
-  setReceiver: (receiver: { receiverId: string; receiverName: string }) => void;
+  setReceiver: (receiver: {
+    receiverId: string;
+    receiverName: string;
+    receiverImage: string;
+  }) => void;
 }
 
 const filterMessages = (
   userId: string,
   userName: string,
-  setReceiver: (receiver: { receiverId: string; receiverName: string }) => void
+  userImage: string | null,
+  setReceiver: (receiver: {
+    receiverId: string;
+    receiverName: string;
+    receiverImage: string;
+  }) => void
 ) => {
   setReceiver({
     receiverId: "",
     receiverName: "",
+    receiverImage: "",
   });
 
   setReceiver({
     receiverId: userId,
     receiverName: userName,
+    receiverImage: userImage || "",
   });
 };
 
@@ -55,7 +66,7 @@ const Contacts = ({
                   key={user.id}
                   className={styles.user}
                   onClick={() => {
-                    filterMessages(user.id, user.name, setReceiver);
+                    filterMessages(user.id, user.name, user.image, setReceiver);
                     setLayout(true);
                   }}
                 >

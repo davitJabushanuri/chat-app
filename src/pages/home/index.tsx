@@ -33,6 +33,7 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
   const [receiver, setReceiver] = useState({
     receiverId: "",
     receiverName: "",
+    receiverImage: "",
   });
   const [layout, setLayout] = useState(false);
 
@@ -55,7 +56,7 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
           <section className={layout ? styles.active : styles.hidden}>
             <Chat
               messages={sessionOwner?.conversations[0]?.messages}
-              sessionOwnerId={sessionOwner?.id}
+              sessionOwner={sessionOwner && sessionOwner}
               receiver={receiver}
               setLayout={setLayout}
             />

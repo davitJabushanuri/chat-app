@@ -1,45 +1,62 @@
 .container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 0.8rem;
+  max-width: 800px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 
-  .message {
+  .image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .content {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
-  }
+    justify-content: center;
+    align-items: flex-start;
 
-  .sender {
-    color: white;
-    margin-left: auto;
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
 
-    .text {
-      background-color: #703efe;
+      .name {
+        font-weight: 500;
+        color: #f1f1f1;
+      }
+
+      .time {
+        color: #a1a1a1;
+        opacity: 0.8;
+      }
+    }
+
+    .message {
       padding: 0.4rem 1rem;
-      border-radius: 0.8rem 0.8rem 0 0.8rem;
-    }
-
-    .time {
-      font-size: 0.8rem;
-      color: #a1a1aa;
-      margin-right: auto;
+      color: #c1c3c4;
+      background-color: #35373b;
+      border-radius: 0.8rem;
+      border-top-left-radius: 0;
     }
   }
+}
 
-  .receiver {
-    color: black;
-    margin-right: auto;
+.sender {
+  direction: rtl;
 
-    .text {
-      background-color: #e5e5ea;
-
-      padding: 0.4rem 1rem;
-      border-radius: 100vw 100vw 0 100vw;
-    }
-
-    .time {
-      font-size: 0.8rem;
-      color: #a1a1aa;
-      margin-left: auto;
+  .content {
+    .message {
+      border-radius: 0.8rem 0 0.8rem 0.8rem;
+      background-color: #268c61;
+      color: #e5e5e5;
+      direction: ltr;
     }
   }
 }

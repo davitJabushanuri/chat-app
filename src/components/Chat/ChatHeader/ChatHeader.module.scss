@@ -24,6 +24,27 @@
   }
 
   .info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    .image {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background-color: #2b2b2b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
     h2 {
       font-size: 1.2rem;
       font-weight: 500;

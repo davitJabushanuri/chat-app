@@ -1,5 +1,6 @@
 .container {
   background-color: #1b1b1b;
+  width: 100%;
 
   .messages {
     padding: 1rem;
@@ -7,7 +8,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1rem;
   }
 
   .input {

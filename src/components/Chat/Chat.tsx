@@ -5,28 +5,25 @@ import ChatHeader from "./ChatHeader/ChatHeader";
 import { RiSendPlaneFill } from "react-icons/ri";
 import useMessage from "@/hooks/useMessage";
 import { useState } from "react";
-import { IMessage } from "@/types/types";
+import { IMessage, IUser } from "@/types/types";
 
 interface IChatProps {
   messages: IMessage[];
   receiver: {
     receiverId: string;
     receiverName: string;
+    receiverImage: string;
   };
-  sessionOwnerId: string;
+  sessionOwner: IUser;
   setLayout: (layout: boolean) => void;
 }
 
-const Chat = ({
-  messages,
-  sessionOwnerId,
-  receiver,
-  setLayout,
-}: IChatProps) => {
+const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
   const [message, setMessage] = useState("");
   const messageMutation = useMessage();
 
-  if (!receiver.receiverName) return <div className={styles.container}></div>;
+  if (!receiver.receiverName)
+    return <div style={{ height: "calc(100vh - 60px)" }}></div>;
 
   return (
     <div className={styles.container}>
@@ -34,6 +31,7 @@ const Chat = ({
         <ChatHeader
           setLayout={setLayout}
           receiverName={receiver.receiverName}
+          receiverImage={receiver.receiverImage}
         />
       </div>
 
@@ -55,8 +53,11 @@ const Chat = ({
               return (
                 <Message
                   key={message.id}
-                  isSender={message.senderId === sessionOwnerId}
+                  isSender={message.senderId === sessionOwner.id}
                   message={message.content}
+                  receiverName={receiver.receiverName}
+                  receiverImage={receiver.receiverImage}
+                  senderImage={sessionOwner?.image}
                   time={message.createdAt}
                 />
               );
@@ -76,8 +77,8 @@ const Chat = ({
               messageMutation.mutate({
                 content: message,
                 image: "",
-                receiverId: receiver.receiverId,
-                senderId: sessionOwnerId,
+                receiverId: receiver?.receiverId,
+                senderId: sessionOwner?.id,
                 conversationId: "cl9r3h1py0000u5lsf9x632gn",
               })
             }
