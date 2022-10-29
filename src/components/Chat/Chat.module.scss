@@ -1,10 +1,11 @@
 .container {
-  background-color: #1b1b1b;
+  // margin-top: 1rem;
+  background-color: #1d1e24;
   width: 100%;
 
   .messages {
     padding: 1rem;
-    height: calc(100vh - 60px - 80px - 80px);
+    height: calc(100vh - 60px - 80px - 85px);
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -14,8 +15,8 @@
       width: 0.6rem;
     }
 
-    &::-webkit-scrollbar-track {
-    }
+    // &::-webkit-scrollbar-track {
+    // }
 
     &::-webkit-scrollbar-thumb {
       background-color: #2e2e2e;
@@ -24,16 +25,16 @@
   }
 
   .input {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    background-color: #242424;
-    padding: 1rem;
+    // background-color: #242424;
+    padding: 0.7rem;
     display: flex;
     align-items: center;
 
     .form {
-      background-color: #35373b;
-      padding: 0.7rem 1rem;
-      border-radius: 0.8rem;
+      background-color: #16171b;
+      padding: 0.6rem;
+      padding-left: 1rem;
+      border-radius: 1rem;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -52,15 +53,18 @@
       }
 
       button {
-        padding-left: 0.8rem;
-        background-color: transparent;
-        font-size: 1.1rem;
-        color: #2c8963;
+        padding: 0.6rem;
+        border-radius: 0.8rem;
+        font-size: 1.2rem;
+        background-color: #f3fc8a;
+        color: #16171b;
         cursor: pointer;
-        border-left: 1px solid #5c5c5c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
-          color: #31b47e;
+          background-color: #e8fd02;
         }
       }
     }

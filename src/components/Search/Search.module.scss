@@ -2,17 +2,17 @@
   display: grid;
   grid-template-columns: 1.4rem 1fr;
   align-items: center;
-  padding: 0.6rem;
+  padding: 1rem;
   gap: 0.6rem;
-  border-radius: 0.6rem;
-  background-color: #35373b;
+  border-radius: 1rem;
+  background-color: #16171b;
   margin: 0 1rem 1rem 1rem;
   display: flex;
   align-items: center;
 
   .icon {
     font-size: 1.2rem;
-    color: #95979b;
+    color: #7e8085;
   }
 
   input {
@@ -20,5 +20,9 @@
     outline: none;
     color: #f3f3f3;
     background-color: inherit;
+
+    &::placeholder {
+      color: #7e8085;
+    }
   }
 }

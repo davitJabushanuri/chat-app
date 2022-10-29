@@ -13,6 +13,7 @@
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
+    background-color: #e5e5e5;
   }
 
   .content {
@@ -41,11 +42,12 @@
     }
 
     .message {
-      padding: 0.4rem 1rem;
+      padding: 0.8rem 1rem;
       color: #c1c3c4;
       background-color: #35373b;
       border-radius: 0.8rem;
       border-top-left-radius: 0;
+      word-break: break-all;
     }
   }
 }

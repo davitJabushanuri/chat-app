@@ -2,7 +2,7 @@ import Message from "../Message/Message";
 import styles from "./Chat.module.scss";
 import ChatHeader from "./ChatHeader/ChatHeader";
 
-import { RiSendPlaneFill } from "react-icons/ri";
+import { RiSendPlaneLine } from "react-icons/ri";
 import useMessage from "@/hooks/useMessage";
 import { useState } from "react";
 import { IMessage, IUser } from "@/types/types";
@@ -48,7 +48,9 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
           setLayout={setLayout}
           receiverName={receiver.receiverName}
           receiverImage={receiver.receiverImage}
-          lastMessageTime={messages[messages.length - 1]?.createdAt}
+          lastMessageTime={
+            messages ? messages[messages.length - 1]?.createdAt : new Date()
+          }
         />
       </div>
 
@@ -106,7 +108,7 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
               setMessage("");
             }}
           >
-            <RiSendPlaneFill />
+            <RiSendPlaneLine />
           </button>
         </div>
       </div>

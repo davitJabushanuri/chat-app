@@ -1,13 +1,13 @@
 .container {
   main {
-    background-color: #242424;
+    background-color: #20232b;
     .content {
       display: grid;
       grid-template-columns: 1fr;
     }
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     main {
       .content {
         grid-template-columns: 300px 1fr;

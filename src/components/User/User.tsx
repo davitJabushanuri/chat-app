@@ -27,20 +27,21 @@ const User = ({ user, sessionOwnerId }: IUserProps) => {
     ? messagesWihSessionOwner[messagesWihSessionOwner.length - 1]
     : null;
 
-  console.log(latestMessage);
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <img src={user.image || ""} alt="user-image" />
+        <img src={user.image || ""} alt="" />
       </div>
       <div className={styles.info}>
         <h3>{user.name}</h3>
         <p>{latestMessage ? latestMessage.content : ""}</p>
       </div>
       <div className={styles.time}>
-        <p>
-          <Moment format="LT" date={latestMessage?.createdAt} />
-        </p>
+        {latestMessage && (
+          <p>
+            <Moment format="HH:MM" date={latestMessage?.createdAt} />
+          </p>
+        )}
       </div>
     </div>
   );
