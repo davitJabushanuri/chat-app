@@ -2,12 +2,10 @@ import Message from "../Message/Message";
 import styles from "./Chat.module.scss";
 import ChatHeader from "./ChatHeader/ChatHeader";
 
-import { RiSendPlaneLine } from "react-icons/ri";
-import useMessage from "@/hooks/useMessage";
-import { useState } from "react";
 import { IMessage, IUser } from "@/types/types";
 
 import React, { useEffect, useRef } from "react";
+import Input from "./Input/Input";
 
 interface IChatProps {
   messages: IMessage[];
@@ -21,9 +19,6 @@ interface IChatProps {
 }
 
 const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
-  const [message, setMessage] = useState("");
-  const messageMutation = useMessage();
-
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -38,8 +33,7 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
     scrollToBottom();
   });
 
-  if (!receiver.receiverName)
-    return <div style={{ height: "calc(100vh - 60px)" }}></div>;
+  if (!receiver.receiverName) return <div className={styles.placeholder}></div>;
 
   return (
     <div className={styles.container}>
@@ -72,45 +66,25 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
             })
             .map((message) => {
               return (
-                <>
-                  <Message
-                    key={message.id}
-                    isSender={message.senderId === sessionOwner.id}
-                    message={message.content}
-                    receiverName={receiver.receiverName}
-                    receiverImage={receiver.receiverImage}
-                    senderImage={sessionOwner?.image}
-                    time={message.createdAt}
-                  />
-                  <div ref={messagesEndRef} />
-                </>
+                <Message
+                  key={message.id}
+                  isSender={message.senderId === sessionOwner.id}
+                  message={message.content}
+                  receiverName={receiver.receiverName}
+                  receiverImage={receiver.receiverImage}
+                  senderImage={sessionOwner?.image}
+                  time={message.createdAt}
+                />
               );
             })}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className={styles.input}>
-        <div className={styles.form}>
-          <input
-            type="text"
-            placeholder="Your message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button
-            onClick={() => {
-              messageMutation.mutate({
-                content: message,
-                image: "",
-                receiverId: receiver?.receiverId,
-                senderId: sessionOwner?.id,
-                conversationId: "cl9r3h1py0000u5lsf9x632gn",
-              });
-              setMessage("");
-            }}
-          >
-            <RiSendPlaneLine />
-          </button>
-        </div>
+        <Input
+          receiverId={receiver?.receiverId}
+          sessionOwnerId={sessionOwner?.id}
+        />
       </div>
     </div>
   );

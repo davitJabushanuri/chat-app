@@ -1,11 +1,11 @@
 .container {
   background-color: #000000;
+  padding-left: 1rem;
   .header {
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
     color: #f3f3f3;
     max-width: 800px;
     margin: 0 auto;
@@ -47,8 +47,8 @@
       }
 
       h2 {
-        font-size: 1.2rem;
-        font-weight: 500;
+        font-size: 1.1rem;
+        font-weight: 600;
       }
 
       p {
@@ -67,9 +67,9 @@
         }
       }
     }
+  }
 
-    @media screen and (min-width: 1120px) {
-      padding: 0;
-    }
+  @media screen and (min-width: 1140px) {
+    padding: 0;
   }
 }

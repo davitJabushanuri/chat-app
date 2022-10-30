@@ -1,0 +1,38 @@
+.form {
+  background-color: #16171b;
+  padding: 0.6rem;
+  padding-left: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  input {
+    color: #f3f3f3;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  button {
+    padding: 0.6rem;
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    background-color: #f3fc8a;
+    color: #16171b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #e8fd02;
+    }
+  }
+}
