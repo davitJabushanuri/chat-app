@@ -69,7 +69,7 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
                 <Message
                   key={message.id}
                   isSender={message.senderId === sessionOwner.id}
-                  message={message.content}
+                  message={message.text}
                   receiverName={receiver.receiverName}
                   receiverImage={receiver.receiverImage}
                   senderImage={sessionOwner?.image}

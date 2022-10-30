@@ -26,9 +26,11 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
     }
   );
 
-  const sessionOwner = users?.data.find(
+  const sessionOwner = users?.data?.find(
     (user: IUser) => user.email === session?.user?.email
   );
+
+  console.log(sessionOwner.conversations[0].messages);
 
   const [receiver, setReceiver] = useState({
     receiverId: "",

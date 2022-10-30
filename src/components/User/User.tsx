@@ -34,7 +34,7 @@ const User = ({ user, sessionOwnerId }: IUserProps) => {
       </div>
       <div className={styles.info}>
         <h3>{user.name}</h3>
-        <p>{latestMessage ? latestMessage.content : ""}</p>
+        <p>{latestMessage ? latestMessage.text : ""}</p>
       </div>
       <div className={styles.time}>
         {latestMessage && (

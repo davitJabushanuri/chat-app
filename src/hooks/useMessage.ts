@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface IMessageMutation {
-  content: string;
+  text: string;
   image: string;
   senderId: string | undefined;
   receiverId: string | undefined;
@@ -12,14 +12,8 @@ const useMessage = () => {
   const QueryClient = useQueryClient();
 
   return useMutation(
-    ({
-      content,
-      image,
-      senderId,
-      receiverId,
-      conversationId,
-    }: IMessageMutation) =>
-      sendMessage({ content, image, senderId, receiverId, conversationId }),
+    ({ text, image, senderId, receiverId, conversationId }: IMessageMutation) =>
+      sendMessage({ text, image, senderId, receiverId, conversationId }),
     {
       onSuccess: () => {
         console.log("Message sent successfully");
@@ -35,7 +29,7 @@ const useMessage = () => {
 export default useMessage;
 
 const sendMessage = async ({
-  content,
+  text,
   image,
   senderId,
   receiverId,
@@ -48,7 +42,7 @@ const sendMessage = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content,
+        text,
         image,
         senderId,
         receiverId,

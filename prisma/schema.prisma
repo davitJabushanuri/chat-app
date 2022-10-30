@@ -75,7 +75,7 @@ model Message {
     id             String       @id @default(cuid())
     createdAt      DateTime     @default(now())
     updatedAt      DateTime     @updatedAt
-    content        String
+    text           String?
     image          String?
     sender         User         @relation(name: "sender", fields: [senderId], references: [id])
     senderId       String

@@ -17,7 +17,7 @@ export interface IConversation {
 
 export interface IMessage {
   id: string;
-  content: string;
+  text: string;
   image?: string;
   createdAt: Date;
   senderId: string;

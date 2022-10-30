@@ -10,7 +10,7 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const message = await prisma.message.create({
         data: {
-          content: body.content,
+          text: body.text,
           image: body.image,
           senderId: body.senderId,
           receiverId: body.receiverId,
