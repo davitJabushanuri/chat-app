@@ -18,18 +18,38 @@ interface IInputForm {
   image: string;
 }
 
-const previewImage = (e: any, setImagePreview: any) => {
+const previewImage = (e: any, setImagePreview: any, setImage: any) => {
   const file = e.target.files[0];
+  setImage(file);
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onloadend = () => {
     setImagePreview(reader.result);
   };
-  console.log(file);
+};
+
+const uploadImage = async (
+  image: File,
+  setImageUrl: (imageUrl: string) => void
+) => {
+  const url = "https://api.cloudinary.com/v1_1/djywo6ccm/upload";
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("upload_preset", "oc3qa7i7");
+
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData,
+  });
+  const data = await response.json();
+  setImageUrl(data.public_id);
+  return data.public_id;
 };
 
 const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const messageMutation = useMessage();
 
@@ -39,6 +59,7 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
 
   const removeImage = () => {
     setImagePreview(null);
+    setImage(null);
   };
 
   const { register, handleSubmit } = useForm<IInputForm>({
@@ -48,17 +69,21 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
     },
   });
 
-  const onSubmit = (data: IInputForm, e: any) => {
-    if (data.message.trim() !== "" || data.image !== "") {
-      messageMutation.mutate({
-        text: data.message,
-        image: data.image,
-        receiverId: receiverId,
-        senderId: sessionOwnerId,
-        conversationId: "cl9r3h1py0000u5lsf9x632gn",
-      });
-      e.target.reset();
-    }
+  const onSubmit = async (data: IInputForm, e: any) => {
+    const imgUrl = await uploadImage(image as File, setImageUrl);
+    console.log(imgUrl);
+
+    messageMutation.mutate({
+      text: data.message,
+      image: imgUrl || "",
+      receiverId: receiverId,
+      senderId: sessionOwnerId,
+      conversationId: "cl9r3h1py0000u5lsf9x632gn",
+    });
+    e.target.reset();
+    setImagePreview(null);
+    setImageUrl(null);
+    setImage(null);
   };
 
   return (
@@ -81,7 +106,7 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
       <input
         style={{ display: "none" }}
         type="file"
-        onChange={(e) => previewImage(e, setImagePreview)}
+        onChange={(e) => previewImage(e, setImagePreview, setImage)}
         ref={imageRef}
         accept="image/*"
         multiple={false}

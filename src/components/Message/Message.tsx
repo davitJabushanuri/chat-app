@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./Message.module.scss";
 import Moment from "react-moment";
+import { AdvancedImage } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen";
 
 interface IMessage {
   isSender: boolean;
-  message: string;
+  messageText: string | undefined;
+  messageImage: string | undefined;
   receiverName: string;
   receiverImage: string;
   senderImage: string | null;
@@ -13,12 +16,23 @@ interface IMessage {
 
 const Message = ({
   isSender,
-  message,
+  messageText,
+  messageImage,
   receiverName,
   receiverImage,
   senderImage,
   time,
 }: IMessage) => {
+  const myCld = new Cloudinary({
+    cloud: {
+      cloudName: "djywo6ccm",
+    },
+  });
+
+  const img = myCld.image(messageImage as string);
+
+  console.log(messageImage);
+
   return (
     <div
       className={`${styles.container} ${
@@ -39,9 +53,17 @@ const Message = ({
             {<Moment calendar>{time}</Moment>}
           </span>
         </div>
-        <div className={styles.message}>
-          <p className={styles.text}>{message}</p>
-        </div>
+        {messageText && (
+          <div className={styles.message}>
+            <p className={styles.text}>{messageText}</p>
+          </div>
+        )}
+
+        {messageImage && (
+          <div>
+            <AdvancedImage cldImg={img} />
+          </div>
+        )}
       </div>
     </div>
   );
