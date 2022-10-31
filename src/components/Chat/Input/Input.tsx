@@ -1,10 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import useMessage from "@/hooks/useMessage";
 import { RiSendPlaneLine } from "react-icons/ri";
 import { IoImageOutline } from "react-icons/io5";
+import { CgClose } from "react-icons/cg";
 import styles from "./Input.module.scss";
 
 import { useForm } from "react-hook-form";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface IInputProps {
   receiverId: string;
@@ -16,20 +18,30 @@ interface IInputForm {
   image: string;
 }
 
+const previewImage = (e: any, setImagePreview: any) => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () => {
+    setImagePreview(reader.result);
+  };
+  console.log(file);
+};
+
 const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const messageMutation = useMessage();
 
-  const uploadImage = () => {
+  const chooseImage = () => {
     imageRef.current?.click();
   };
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<IInputForm>({
+  const removeImage = () => {
+    setImagePreview(null);
+  };
+
+  const { register, handleSubmit } = useForm<IInputForm>({
     defaultValues: {
       message: "",
       image: "",
@@ -51,6 +63,15 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      {imagePreview && (
+        <div className={styles.previewImage}>
+          <img src={imagePreview} alt="" />
+          <span onClick={removeImage}>
+            <CgClose />
+          </span>
+        </div>
+      )}
+
       <input
         type="text"
         placeholder="Your message..."
@@ -60,11 +81,13 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
       <input
         style={{ display: "none" }}
         type="file"
-        {...register("image")}
+        onChange={(e) => previewImage(e, setImagePreview)}
         ref={imageRef}
+        accept="image/*"
+        multiple={false}
       />
 
-      <div onClick={uploadImage} className={styles.image}>
+      <div onClick={chooseImage} className={styles.image}>
         <IoImageOutline />
       </div>
       <button type="submit" disabled={messageMutation.isLoading}>
