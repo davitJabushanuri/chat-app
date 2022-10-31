@@ -49,6 +49,13 @@
       border-top-left-radius: 0;
       word-break: break-all;
     }
+
+    .messageImage {
+      margin: 0.6rem 0;
+      overflow: hidden;
+      border-radius: 0.8rem;
+      max-width: 80%;
+    }
   }
 }
 

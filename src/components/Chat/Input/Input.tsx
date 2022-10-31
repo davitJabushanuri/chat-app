@@ -7,6 +7,8 @@ import styles from "./Input.module.scss";
 
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
+import uploadImage from "@/helpers/uploadImage";
+import previewImage from "@/helpers/previewImage";
 
 interface IInputProps {
   receiverId: string;
@@ -15,41 +17,11 @@ interface IInputProps {
 
 interface IInputForm {
   message: string;
-  image: string;
 }
-
-const previewImage = (e: any, setImagePreview: any, setImage: any) => {
-  const file = e.target.files[0];
-  setImage(file);
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onloadend = () => {
-    setImagePreview(reader.result);
-  };
-};
-
-const uploadImage = async (
-  image: File,
-  setImageUrl: (imageUrl: string) => void
-) => {
-  const url = "https://api.cloudinary.com/v1_1/djywo6ccm/upload";
-  const formData = new FormData();
-  formData.append("file", image);
-  formData.append("upload_preset", "oc3qa7i7");
-
-  const response = await fetch(url, {
-    method: "POST",
-    body: formData,
-  });
-  const data = await response.json();
-  setImageUrl(data.public_id);
-  return data.public_id;
-};
 
 const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const messageMutation = useMessage();
 
@@ -62,16 +34,15 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
     setImage(null);
   };
 
+  // React Hook Form
   const { register, handleSubmit } = useForm<IInputForm>({
     defaultValues: {
       message: "",
-      image: "",
     },
   });
 
   const onSubmit = async (data: IInputForm, e: any) => {
-    const imgUrl = await uploadImage(image as File, setImageUrl);
-    console.log(imgUrl);
+    const imgUrl = await uploadImage(image as File);
 
     messageMutation.mutate({
       text: data.message,
@@ -82,7 +53,6 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
     });
     e.target.reset();
     setImagePreview(null);
-    setImageUrl(null);
     setImage(null);
   };
 

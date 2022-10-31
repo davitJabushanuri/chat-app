@@ -3,6 +3,12 @@ import styles from "./Message.module.scss";
 import Moment from "react-moment";
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
+import {
+  lazyload,
+  responsive,
+  accessibility,
+  placeholder,
+} from "@cloudinary/react";
 
 interface IMessage {
   isSender: boolean;
@@ -31,8 +37,6 @@ const Message = ({
 
   const img = myCld.image(messageImage as string);
 
-  console.log(messageImage);
-
   return (
     <div
       className={`${styles.container} ${
@@ -60,7 +64,7 @@ const Message = ({
         )}
 
         {messageImage && (
-          <div>
+          <div className={styles.messageImage}>
             <AdvancedImage cldImg={img} />
           </div>
         )}
