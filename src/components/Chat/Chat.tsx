@@ -25,8 +25,6 @@ const Chat = ({ sessionOwner, receiver, setLayout }: IChatProps) => {
       conversation.users.find((user) => user.id === receiver.receiverId)
     );
 
-  console.log(conversation);
-
   const scrollToBottom = () => {
     messagesEndRef?.current?.scrollIntoView({
       // behavior: "smooth",
@@ -50,7 +48,9 @@ const Chat = ({ sessionOwner, receiver, setLayout }: IChatProps) => {
           receiverName={receiver.receiverName}
           receiverImage={receiver.receiverImage}
           lastMessageTime={
-            conversation?.messages.slice(-1)[0]?.createdAt || new Date()
+            conversation?.messages
+              .filter((message) => message.receiverId === sessionOwner.id)
+              .slice(-1)[0]?.createdAt
           }
         />
       </div>

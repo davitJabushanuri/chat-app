@@ -7,6 +7,7 @@ import { useState } from "react";
 import Chat from "@/components/Chat/Chat";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { env } from "@/env/server.mjs";
 
 interface IHomeProps {
   usersPlaceholder: IUser[];
@@ -69,7 +70,7 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
 export default Home;
 
 export const getServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/users");
+  const res = await fetch(`${env.URL}/api/users`);
   const usersPlaceholder = await res.json();
 
   return {
