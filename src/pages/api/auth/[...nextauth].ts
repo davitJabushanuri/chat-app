@@ -8,9 +8,6 @@ import { prisma } from "@/server/db/client";
 import { env } from "@/env/server.mjs";
 
 export const authOptions: NextAuthOptions = {
-  // Include user.id on session
-  callbacks: {},
-  // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
