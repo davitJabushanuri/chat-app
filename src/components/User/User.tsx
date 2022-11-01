@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { IUser } from "@/types/types";
+import { IConversation, IUser } from "@/types/types";
 import styles from "./User.module.scss";
 
 import Moment from "react-moment";
@@ -10,22 +10,12 @@ interface IUserProps {
 }
 
 const User = ({ user, sessionOwnerId }: IUserProps) => {
-  const messagesWihSessionOwner = user.conversations
-    ? user.conversations[0]?.messages.filter((message) => {
-        if (
-          (message.senderId === sessionOwnerId &&
-            message.receiverId === user.id) ||
-          (message.receiverId === sessionOwnerId &&
-            message.senderId === user.id)
-        ) {
-          return message;
-        }
-      })
-    : [];
+  const messagesWihSessionOwner = user.conversations.find(
+    (conversation: IConversation) =>
+      conversation.users.find((user) => user.id === sessionOwnerId)
+  );
 
-  const latestMessage = messagesWihSessionOwner
-    ? messagesWihSessionOwner[messagesWihSessionOwner.length - 1]
-    : null;
+  const latestMessage = messagesWihSessionOwner?.messages.slice(-1)[0];
 
   return (
     <div className={styles.container}>
@@ -34,7 +24,7 @@ const User = ({ user, sessionOwnerId }: IUserProps) => {
       </div>
       <div className={styles.info}>
         <h3>{user.name}</h3>
-        <p>{latestMessage ? latestMessage.text : ""}</p>
+        {latestMessage && <p>{latestMessage.text}</p>}
       </div>
       <div className={styles.time}>
         {latestMessage && (

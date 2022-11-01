@@ -17,6 +17,7 @@ const Users = async (req: NextApiRequest, res: NextApiResponse) => {
                   createdAt: "asc",
                 },
               },
+              users: true,
             },
           },
         },

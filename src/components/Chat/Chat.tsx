@@ -2,13 +2,12 @@ import Message from "../Message/Message";
 import styles from "./Chat.module.scss";
 import ChatHeader from "./ChatHeader/ChatHeader";
 
-import { IMessage, IUser } from "@/types/types";
+import { IConversation, IMessage, IUser } from "@/types/types";
 
 import React, { useEffect, useRef } from "react";
 import Input from "./Input/Input";
 
 interface IChatProps {
-  messages: IMessage[];
   receiver: {
     receiverId: string;
     receiverName: string;
@@ -18,8 +17,15 @@ interface IChatProps {
   setLayout: (layout: boolean) => void;
 }
 
-const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
+const Chat = ({ sessionOwner, receiver, setLayout }: IChatProps) => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const conversation: IConversation | undefined =
+    sessionOwner?.conversations.find((conversation: IConversation) =>
+      conversation.users.find((user) => user.id === receiver.receiverId)
+    );
+
+  console.log(conversation);
 
   const scrollToBottom = () => {
     messagesEndRef?.current?.scrollIntoView({
@@ -33,7 +39,8 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
     scrollToBottom();
   });
 
-  if (!receiver.receiverName) return <div className={styles.placeholder}></div>;
+  if (!receiver.receiverName || !sessionOwner)
+    return <div className={styles.placeholder}></div>;
 
   return (
     <div className={styles.container}>
@@ -43,15 +50,15 @@ const Chat = ({ messages, sessionOwner, receiver, setLayout }: IChatProps) => {
           receiverName={receiver.receiverName}
           receiverImage={receiver.receiverImage}
           lastMessageTime={
-            messages ? messages[messages.length - 1]?.createdAt : new Date()
+            conversation?.messages.slice(-1)[0]?.createdAt || new Date()
           }
         />
       </div>
 
       <div className={styles.messages}>
-        {messages &&
-          messages
-            .filter((message) => {
+        {conversation &&
+          conversation.messages
+            .filter((message: IMessage) => {
               if (receiver.receiverId) {
                 if (
                   (message.senderId === receiver.receiverId &&

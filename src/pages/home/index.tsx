@@ -55,8 +55,7 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
 
           <section className={layout ? styles.active : styles.hidden}>
             <Chat
-              messages={sessionOwner?.conversations[0]?.messages}
-              sessionOwner={sessionOwner && sessionOwner}
+              sessionOwner={sessionOwner}
               receiver={receiver}
               setLayout={setLayout}
             />
