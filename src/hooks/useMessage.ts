@@ -5,15 +5,14 @@ interface IMessageMutation {
   image: string;
   senderId: string | undefined;
   receiverId: string | undefined;
-  conversationId: string;
 }
 
 const useMessage = () => {
   const QueryClient = useQueryClient();
 
   return useMutation(
-    ({ text, image, senderId, receiverId, conversationId }: IMessageMutation) =>
-      sendMessage({ text, image, senderId, receiverId, conversationId }),
+    ({ text, image, senderId, receiverId }: IMessageMutation) =>
+      sendMessage({ text, image, senderId, receiverId }),
     {
       onSuccess: () => {
         console.log("Message sent successfully");
@@ -33,7 +32,6 @@ const sendMessage = async ({
   image,
   senderId,
   receiverId,
-  conversationId,
 }: IMessageMutation) => {
   try {
     const message = await fetch("/api/messages", {
@@ -46,7 +44,6 @@ const sendMessage = async ({
         image,
         senderId,
         receiverId,
-        conversationId,
       }),
     });
     console.log(message);

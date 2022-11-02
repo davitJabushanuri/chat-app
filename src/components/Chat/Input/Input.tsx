@@ -46,10 +46,9 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
 
     messageMutation.mutate({
       text: data.message,
-      image: imgUrl || "",
+      image: imgUrl,
       receiverId: receiverId,
       senderId: sessionOwnerId,
-      conversationId: "cl9r3h1py0000u5lsf9x632gn",
     });
     e.target.reset();
     setImagePreview(null);
