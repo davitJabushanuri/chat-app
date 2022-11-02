@@ -21,14 +21,14 @@ export const authOptions: NextAuthOptions = {
   ],
 
   secret: env.NEXTAUTH_SECRET,
-  // session: {
-  //   strategy: "jwt",
-  // },
+  session: {
+    strategy: "jwt",
+  },
 
-  // jwt: {
-  //   secret: env.JWT_SECRET,
-  //   maxAge: 30 * 24 * 60 * 60, // 30 days
-  // },
+  jwt: {
+    secret: env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
 
   pages: {
     signIn: "/auth/signin",
