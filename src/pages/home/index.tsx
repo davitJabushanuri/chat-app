@@ -24,6 +24,7 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
     },
     {
       initialData: usersPlaceholder,
+      refetchInterval: 2000,
     }
   );
 
