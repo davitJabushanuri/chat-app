@@ -37,8 +37,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  debug: env.NODE_ENV === "development",
-
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
