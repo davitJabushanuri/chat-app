@@ -80,5 +80,13 @@
     &:hover {
       background-color: #e8fd02;
     }
+
+    &:active {
+      background-color: #d8f900;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+    }
   }
 }

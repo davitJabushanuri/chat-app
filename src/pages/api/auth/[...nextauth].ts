@@ -30,6 +30,15 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 
+  callbacks: {
+    signIn(params) {
+      console.log("signIn", params);
+      return true;
+    },
+  },
+
+  debug: env.NODE_ENV === "development",
+
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",

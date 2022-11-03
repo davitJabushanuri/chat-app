@@ -29,14 +29,12 @@ const ChatHeader = ({
           </div>
           <div>
             <h2>{receiverName}</h2>
-            <p>
-              <span>Last seen</span>{" "}
-              {lastMessageTime ? (
+            {lastMessageTime && (
+              <p>
+                <span>Last seen</span>{" "}
                 <Moment calendar>{lastMessageTime}</Moment>
-              ) : (
-                ""
-              )}
-            </p>
+              </p>
+            )}
           </div>
         </div>
       </div>
