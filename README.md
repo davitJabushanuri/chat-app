@@ -28,6 +28,7 @@ Users should be able to:
 - [Cloudinary](https://cloudinary.com/)
 - [Postgresql](https://www.postgresql.org/)
 - [Typescript](https://www.typescriptlang.org/)
+- [Nextauth](https://next-auth.js.org/)
 
 ## :star2: Acknowledgment
 
