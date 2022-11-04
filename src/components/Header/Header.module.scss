@@ -1,4 +1,5 @@
 .container {
+  height: 70px;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -7,20 +8,47 @@
   border-bottom: 2px solid #000000;
   color: #f2f2f2;
 
-  h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
   }
 
-  button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    color: #f3f3f3;
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-    &:hover {
-      color: #ff0000;
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      align-items: flex-end;
+
+      .name {
+        font-weight: 600;
+      }
+
+      .email {
+        font-size: 0.8rem;
+      }
+    }
+
+    img {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      color: #f3f3f3;
+
+      &:hover {
+        color: #ff0000;
+      }
     }
   }
 }

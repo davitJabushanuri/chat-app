@@ -1,9 +1,38 @@
 .container {
+  background-color: #24242f;
   main {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+
+    .content {
+      text-align: center;
+      color: azure;
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: 0.6rem;
+        margin-bottom: 2rem;
+      }
+
+      button {
+        background: #3174fd;
+        color: #fff;
+        border: none;
+        padding: 1rem 4rem;
+        border-radius: 100vmax;
+        font-size: 1.4rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        min-width: 200px;
+
+        &:hover {
+          background: #0557fa;
+        }
+      }
+    }
   }
 }

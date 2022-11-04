@@ -1,10 +1,12 @@
 .container {
+  background: #1a1820;
+
   main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 1.4rem;
     height: 100vh;
     padding: 1rem;
 
@@ -17,12 +19,12 @@
         align-items: center;
         justify-content: center;
         gap: 0.8rem;
-        padding: 0.6rem 1rem;
+        padding: 1rem 1rem;
         border-radius: 0.4rem;
-        border: 1px solid rgb(223, 222, 222);
-        background: white;
-        color: #37404f;
+        background: #24242f;
+        color: #fff;
         font-weight: 500;
+        font-size: 1.2rem;
         transition: all 0.2s ease-in-out;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 

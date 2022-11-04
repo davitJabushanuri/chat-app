@@ -8,6 +8,7 @@ import Chat from "@/components/Chat/Chat";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { env } from "@/env/server.mjs";
+import Head from "next/head";
 
 interface IHomeProps {
   usersPlaceholder: IUser[];
@@ -25,6 +26,10 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
     {
       initialData: usersPlaceholder,
       refetchInterval: 2000,
+
+      onError: (err) => {
+        console.log(err);
+      },
     }
   );
 
@@ -41,6 +46,11 @@ const Home = ({ usersPlaceholder }: IHomeProps) => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>ILine/Home</title>
+        <meta name="description" content="chat app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <main>
         <div className={styles.header}>
           <Header />

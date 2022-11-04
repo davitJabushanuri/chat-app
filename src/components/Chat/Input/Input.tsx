@@ -42,14 +42,15 @@ const Input = ({ receiverId, sessionOwnerId }: IInputProps) => {
   });
 
   const onSubmit = async (data: IInputForm, e: any) => {
-    const imgUrl = await uploadImage(image as File);
+    const imgUrl = image ? await uploadImage(image as File) : null;
 
-    messageMutation.mutate({
-      text: data.message,
-      image: imgUrl,
-      receiverId: receiverId,
-      senderId: sessionOwnerId,
-    });
+    if (data.message || imgUrl)
+      messageMutation.mutate({
+        text: data.message,
+        image: imgUrl,
+        receiverId: receiverId,
+        senderId: sessionOwnerId,
+      });
     e.target.reset();
     setImagePreview(null);
     setImage(null);

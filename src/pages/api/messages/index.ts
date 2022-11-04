@@ -46,6 +46,8 @@ const Messages = async (req: NextApiRequest, res: NextApiResponse) => {
     } else {
       const newConversation = await prisma.conversation.create({
         data: {
+          senderId: body.senderId,
+          receiverId: body.receiverId,
           users: {
             connect: [
               {

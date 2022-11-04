@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from "./Header.module.scss";
 import { useSession, signOut } from "next-auth/react";
 import { FiLogOut } from "react-icons/fi";
@@ -10,12 +11,19 @@ const Header = () => {
   }
   return (
     <div className={styles.container}>
-      <h2>{session && session?.user?.name}</h2>
-      {session && (
-        <button onClick={() => signOut()}>
-          <FiLogOut />
-        </button>
-      )}
+      <div className={styles.logo}>ILine</div>
+      <div className={styles.user}>
+        <div className={styles.info}>
+          <h2 className={styles.name}>{session && session?.user?.name}</h2>
+          <p className={styles.email}>{session && session?.user?.email}</p>
+        </div>
+        <img src={session?.user?.image || ""} alt="" />
+        {session && (
+          <button onClick={() => signOut()}>
+            <FiLogOut />
+          </button>
+        )}
+      </div>
     </div>
   );
 };

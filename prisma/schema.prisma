@@ -61,11 +61,13 @@ model User {
 }
 
 model Conversation {
-    id        String    @id @default(cuid())
-    name      String?
-    users     User[]
-    messages  Message[]
-    createdAt DateTime  @default(now())
+    id         String    @id @default(cuid())
+    name       String?
+    senderId   String
+    receiverId String
+    users      User[]
+    messages   Message[]
+    createdAt  DateTime  @default(now())
 }
 
 model Message {

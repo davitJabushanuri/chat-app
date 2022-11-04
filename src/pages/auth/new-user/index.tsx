@@ -1,18 +1,27 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import styles from "./new-user.module.scss";
 
-const index = () => {
+const Index = () => {
+  const { data: session } = useSession();
+
   return (
     <div className={styles.container}>
       <main>
-        <h1>new user</h1>
+        <div className={styles.content}>
+          <h1>
+            Welcome abroad{session && `, ${session?.user?.name?.split(" ")[0]}`}
+          </h1>
 
-        <Link href="/home">
-          <a>Go to home page</a>
-        </Link>
+          <button>
+            <Link href="/home">
+              <a>Start chatting</a>
+            </Link>
+          </button>
+        </div>
       </main>
     </div>
   );
 };
 
-export default index;
+export default Index;
